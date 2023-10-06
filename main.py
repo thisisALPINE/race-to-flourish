@@ -3,7 +3,6 @@ import sys
 
 
 def time_to_seconds_milliseconds(value):
-    # Check if the value contains ':', which indicates it's in MM:SS:MS format
     if ':' in value:
         parts = value.split(':')
         minutes = int(parts[0])
@@ -37,21 +36,17 @@ def convert_to_cumulative(input_data):
 
 
 if __name__ == "__main__":
-    # Read the CSV data
     input_filename = sys.argv[1]
     with open(input_filename, 'r') as infile:
         reader = csv.reader(infile)
         data = [row for row in reader]
     data[0][0] = "Name"
 
-    # Transpose the data
     transposed_data = list(zip(*data))
     formatted_data = format_data(transposed_data)
     cumulative_data = convert_to_cumulative(formatted_data)
-    # cumulative_data[0][0] = "Name"
 
-    # Write the transposed data to a new CSV file
-    with open('transposed_output.csv', 'w', newline='') as outfile:
+    with open('output.csv', 'w', newline='') as outfile:
         writer = csv.writer(outfile)
         writer.writerows(cumulative_data)
 
